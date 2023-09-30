@@ -38,7 +38,8 @@ class Game{
       console.log("bot -->",bot);
     
       let battle = new Battle(this.player,bot);
-      battle.prepareBattle();
+      // battle.prepareBattle();
+      battle.getFirstPokemon();
         
         
         // let bot = new Bot('Ramdon Person',);
