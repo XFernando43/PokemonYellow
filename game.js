@@ -1,6 +1,6 @@
 class Game{
     constructor(){
-        this.player = null;
+      this.player = null;
     }
     AssignPlayer(name,pokemon,pokemonName){
       const newPlayer = new Player(name,pokemon,pokemonName);
@@ -39,8 +39,9 @@ class Game{
     
       let battle = new Battle(this.player,bot);
       // battle.prepareBattle();
-      battle.getFirstPokemon();
-        
+      // battle.getFirstPokemon();
+      battle.start();
+      this.menu();
         
         // let bot = new Bot('Ramdon Person',);
         // Crear un Bot llamado "Random Person", con un Pokemon aleatorio de nivel entre 1 y 5
