@@ -55,8 +55,12 @@ class Battle{
       result_firstAtack = this.firstBySpeed(this.player1,this.bot);
       if(result_firstAtack === 1){
         this.attackToPokemon(result_firstAtack,choise_atackPlayer,this.player1.pokemon);
+        this.attackToPokemon(0,atack_bot,this.bot.pokemon);
+        this.printBattleStatus(this.hpPlayer,this.hpBot);
       }else{
+        this.attackToPokemon(1,choise_atackPlayer,this.player1.pokemon);
         this.attackToPokemon(result_firstAtack,atack_bot,this.bot.pokemon);
+        this.printBattleStatus(this.hpPlayer,this.hpBot);
       }
     }
 
@@ -65,62 +69,24 @@ class Battle{
 
   attackToPokemon(turn,attack,pokemon){ 
     window.alert("Alguien ha atacado");
-    let statsPlayer;
-    let statsBot;
-    statsPlayer = this.player1.pokemon.stats;
-    statsBot = this.bot.pokemon.stats;
     let attackEspecifics;
-    let playerPokemonHp = statsPlayer.hp;
-    let botPokemonHp = statsBot.hp;
-    
-    
-    //logica los stats se multiplican por el level del pokemon so solo debemos aumentar de nivel
-
-    
+    let daño;
     for (let a of Moves){
       if(attack === a.name){
         attackEspecifics = a;
       }
     }
-    
-
-    if(turn === 1){
-      if(this.hpBot > 0){
-        this.hpBot-=4;
-      }
-      if(this.hpPlayer > 0){
-        this.hpPlayer-=4;
-      }
-      else if(this.hpBot <= 0){
-        return true;
-      }
-      else if(this.hpPlayer <= 0){
-        return false;
-      }
+    if(attackEspecifics.type === 'normal'){
+      daño = Math.floor(Math.floor(Math.floor(2 * pokemon.level / 5.0 + 2) * this.player1.pokemon.stats.attack * attackEspecifics.power / this.player1.pokemon.stats.defense) / 50) + 2
     }else{
-      if(this.hpBot > 0){
-        this.hpBot-=4;
-      }
-      if(this.hpPlayer > 0){
-        this.hpPlayer-=4;
-      }
-      else if(this.hpBot <= 0){
-        return true;
-      }
-      else if(this.hpPlayer <= 0){
-        return false;
-      }
+      daño = Math.floor(Math.floor(Math.floor(2 * pokemon.level / 5.0 + 2) * this.player1.pokemon.stats.specialAttack * attackEspecifics.power / this.player1.pokemon.stats.specialDefense) / 50) + 2
     }
 
-    // offesinveStat depende el tipo
-    // targetDefensiveStat
-    
-    // let daño = Math.floor(Math.floor(Math.floor(2 * pokemon.level / 5.0 + 2) * offensiveStat * attackEspecifics.power / targetDefensiveStat) / 50) + 2
-
-    console.log("Hp player",this.hpPlayer);
-    console.log("Hp bot",this.hpBot);
-    
-    this.printBattleStatus(this.hpPlayer,this.hpBot);
+    if(turn === 1){
+      this.hpBot-=daño;
+    }else{
+      this.hpPlayer-=daño;
+    }
 
   }
   
